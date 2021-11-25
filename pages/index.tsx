@@ -126,7 +126,7 @@ const CustomDonation = ({ onDonate }: CustomDonationInput) => {
       className="flex-1 flex relative rounded-md shadow-sm"
       onSubmit={handleSubmit}
     >
-      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-20">
+      <div className="absolute overflow-hidden inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-20">
         <span className="text-gray-500 text-lg">$</span>
       </div>
 
