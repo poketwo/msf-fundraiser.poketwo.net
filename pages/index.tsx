@@ -95,11 +95,11 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
         / 10,000
       </div>
 
-      <div className="rounded-lg mb-8 md:mb-3 overflow-hidden h-8 bg-gray-200">
+      <div className="relative rounded-lg mb-8 md:mb-3 h-8 bg-gradient-to-r from-yellow-500 to-pink-500 via-red-500">
         <div
-          className="h-full bg-gradient-to-r from-yellow-500 to-red-500"
-          style={{ width: `${percentage}%` }}
-        ></div>
+          className="h-full bg-gray-200 ml-auto"
+          style={{ width: `${100 - percentage}%` }}
+        />
       </div>
 
       <div className="flex flex-col gap-4 md:flex-row text-left md:text-right">
