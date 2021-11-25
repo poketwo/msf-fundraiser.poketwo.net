@@ -7,6 +7,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
+        <title>Pokétwo MSF Fundraiser</title>
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
       <Component {...pageProps} />
