@@ -84,7 +84,7 @@ type ProgressBarProps = {
 };
 
 const ProgressBar = ({ currentValue }: ProgressBarProps) => {
-  const percentage = Math.floor((Math.min(currentValue, 10000) / 10000) * 100);
+  const percentage = (Math.min(currentValue, 10000) / 10000) * 100;
 
   return (
     <div className="relative flex flex-col w-full">

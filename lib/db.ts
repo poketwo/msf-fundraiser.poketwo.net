@@ -17,7 +17,7 @@ export const fetchValue = async () => {
   const db = await dbPromise;
   const coll = db.collection("fundraiser");
   const doc = await coll.findOne<{ value?: number }>({
-    _id: "thanksgiving-2021",
+    _id: "msf_2021",
   });
-  return doc?.value ?? 0;
+  return (doc?.value ?? 0) / 100;
 };
