@@ -79,7 +79,7 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
         / 10,000
       </div>
 
-      <div className="relative rounded-lg mb-8 md:mb-3 h-8 bg-gradient-to-r from-yellow-500 to-pink-500 via-red-500">
+      <div className="relative overflow-hidden rounded-lg mb-8 md:mb-3 h-8 bg-gradient-to-r from-yellow-500 to-pink-500 via-red-500">
         <div
           className="h-full bg-gray-200 ml-auto"
           style={{ width: `${100 - percentage}%` }}
@@ -126,7 +126,7 @@ const CustomDonation = ({ onDonate }: CustomDonationInput) => {
       className="flex-1 flex relative rounded-md shadow-sm"
       onSubmit={handleSubmit}
     >
-      <div className="absolute overflow-hidden inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-20">
+      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-20">
         <span className="text-gray-500 text-lg">$</span>
       </div>
 
