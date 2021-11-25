@@ -1,7 +1,9 @@
 import clsx from "clsx";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { FormEventHandler, PropsWithChildren, useRef } from "react";
 import { HiCheckCircle, HiChevronUp, HiPlus } from "react-icons/hi";
+import { fetchValue } from "../lib/db";
 
 const format = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -205,7 +207,11 @@ const DonationForm = ({ onDonate }: DonationFormProps) => {
   );
 };
 
-const Home = () => {
+type HomeProps = {
+  currentValue: number;
+};
+
+const Home = ({ currentValue }: HomeProps) => {
   const handleDonate = (amount: number) => {
     window.location.href = `/api/checkout?amount=${amount}`;
   };
@@ -214,10 +220,18 @@ const Home = () => {
     <div className="flex flex-col items-center gap-16 max-w-5xl mx-auto p-6 pb-24">
       <Logos />
       <Text />
-      <ProgressBar currentValue={5000} />
+      <ProgressBar currentValue={currentValue} />
       <DonationForm onDonate={handleDonate} />
     </div>
   );
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  return {
+    props: {
+      currentValue: await fetchValue(),
+    },
+  };
+};
