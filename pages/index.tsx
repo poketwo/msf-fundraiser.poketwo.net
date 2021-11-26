@@ -14,8 +14,8 @@ const format = new Intl.NumberFormat("en-US", {
 });
 
 const Text = () => (
-  <div className="text-center">
-    <h1 className="text-3xl md:text-5xl mb-4 font-extrabold">
+  <div className="text-center flex flex-col gap-6">
+    <h1 className="text-3xl md:text-5xl font-extrabold">
       Help save lives around the world
     </h1>
 
@@ -29,6 +29,11 @@ const Text = () => (
       , an international humanitarian organization that provides millions of
       consultations, surgeries, treatments and vaccinations across over 70
       countries every year.
+    </p>
+
+    <p className="text-lg md:text-2xl">
+      Pokétwo will cover all transaction fees and match the first $5,000 in
+      donations, 1:1.
     </p>
   </div>
 );
