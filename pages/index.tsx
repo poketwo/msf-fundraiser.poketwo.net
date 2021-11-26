@@ -87,7 +87,10 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
       <div className="relative overflow-hidden rounded-lg mb-8 md:mb-3 h-8 bg-gradient-to-r from-yellow-500 to-pink-500 via-red-500">
         <div
           className="h-full bg-gray-200 ml-auto"
-          style={{ width: `${100 - percentage}%` }}
+          style={{
+            width: `${100 - percentage}%`,
+            clipPath: "polygon(0 0, 10px 50%, 0 100%, 100% 100%, 100% 0)",
+          }}
         />
       </div>
 
