@@ -1,10 +1,14 @@
 import clsx from "clsx";
+import { formatDuration, intervalToDuration } from "date-fns";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { FormEventHandler, PropsWithChildren, useRef } from "react";
 import { HiCheckCircle, HiChevronUp, HiSparkles } from "react-icons/hi";
 import Logos from "../components/Logos";
 import { fetchValue } from "../lib/db";
+import { useTime } from "../lib/time";
+
+const END_DATE = new Date(1639094400000);
 
 const format = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -88,14 +92,26 @@ type ProgressBarProps = {
 
 const ProgressBar = ({ currentValue }: ProgressBarProps) => {
   const percentage = (Math.min(currentValue, 30000) / 30000) * 100;
+  const time = useTime();
+  const remaining = formatDuration(
+    intervalToDuration({ start: time, end: END_DATE }),
+    { format: ["days", "hours"] }
+  );
 
   return (
     <div className="relative flex flex-col w-full">
-      <div className="text-4xl text-center mb-8">
+      <div className="text-4xl text-center mb-4">
         <span className="text-5xl font-black">
           {format.format(currentValue)}
         </span>{" "}
         / 30,000
+      </div>
+
+      <div className="text-lg text-center text-gray-500 mb-8">
+        {percentage.toFixed(1)}% of goal reached
+        <br className="md:hidden" />
+        <span className="hidden md:inline"> • </span>
+        {time < END_DATE ? `${remaining} remaining` : "fundraiser ended"}
       </div>
 
       <div className="relative overflow-hidden rounded-lg mb-8 md:mb-3 h-8 bg-gradient-to-r from-yellow-500 to-pink-500 via-red-500">

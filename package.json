@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "clsx": "^1.1.1",
+    "date-fns": "^2.26.0",
     "discord-api-types": "^0.24.0",
     "discord-oauth2": "^2.8.0",
     "iron-session": "^6.0.2",
