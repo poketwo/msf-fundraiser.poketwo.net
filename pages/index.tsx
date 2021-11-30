@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { FormEventHandler, PropsWithChildren, useRef } from "react";
-import { HiCheckCircle, HiChevronUp } from "react-icons/hi";
+import { HiCheckCircle, HiChevronUp, HiSparkles } from "react-icons/hi";
 import Logos from "../components/Logos";
 import { fetchValue } from "../lib/db";
 
@@ -41,31 +41,45 @@ const Text = () => (
 type ProgressBarItemProps = PropsWithChildren<{
   currentValue: number;
   value: number;
+  className?: string;
 }>;
 
 const ProgressBarItem = ({
   value,
   currentValue,
   children,
+  className,
 }: ProgressBarItemProps) => (
-  <div className="flex-1 md:ml-4 flex flex-col gap-1">
-    {currentValue >= value ? (
-      <HiCheckCircle className="hidden md:block text-xl ml-auto text-green-600 transform translate-x-1/3" />
-    ) : (
-      <HiChevronUp className="hidden md:block text-xl ml-auto transform translate-x-1/3" />
-    )}
-
-    <h2
-      className={clsx(
-        "text-2xl font-bold",
-        currentValue >= value && "text-green-600"
+  <div className={clsx("flex-1 md:ml-4 flex flex-col gap-1", className)}>
+    <div className="md:ml-auto md:max-w-1xs">
+      {currentValue >= value ? (
+        <HiCheckCircle className="hidden md:block text-xl ml-auto text-green-600 transform translate-x-1/3" />
+      ) : (
+        <HiChevronUp className="hidden md:block text-xl ml-auto transform translate-x-1/3" />
       )}
-    >
-      {format.format(value)}
-    </h2>
 
-    <p className={currentValue >= value ? "text-green-600" : ""}>{children}</p>
+      <h2
+        className={clsx(
+          "text-2xl font-bold",
+          currentValue >= value && "text-green-600"
+        )}
+      >
+        {format.format(value)}
+      </h2>
+
+      <p
+        className={clsx("text-base", currentValue >= value && "text-green-600")}
+      >
+        {children}
+      </p>
+    </div>
   </div>
+);
+
+const ShinyUnitedPikachuText = () => (
+  <b className="text-yellow-500">
+    United Pikachu <HiSparkles className="inline text-lg align-middle mb-1" />
+  </b>
 );
 
 type ProgressBarProps = {
@@ -73,7 +87,7 @@ type ProgressBarProps = {
 };
 
 const ProgressBar = ({ currentValue }: ProgressBarProps) => {
-  const percentage = (Math.min(currentValue, 10000) / 10000) * 100;
+  const percentage = (Math.min(currentValue, 30000) / 30000) * 100;
 
   return (
     <div className="relative flex flex-col w-full">
@@ -81,12 +95,12 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
         <span className="text-5xl font-black">
           {format.format(currentValue)}
         </span>{" "}
-        / 10,000
+        / 30,000
       </div>
 
       <div className="relative overflow-hidden rounded-lg mb-8 md:mb-3 h-8 bg-gradient-to-r from-yellow-500 to-pink-500 via-red-500">
         <div
-          className="h-full bg-gray-200 ml-auto"
+          className="absolute inset-0 bg-gray-200 ml-auto -mt-2 -mb-2"
           style={{
             width: `${100 - percentage}%`,
             clipPath: "polygon(0 0, 10px 50%, 0 100%, 100% 100%, 100% 0)",
@@ -95,21 +109,59 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
       </div>
 
       <div className="flex flex-col gap-4 md:flex-row text-left md:text-right">
-        <ProgressBarItem value={2500} currentValue={currentValue}>
+        <ProgressBarItem
+          className="md:hidden"
+          value={2500}
+          currentValue={currentValue}
+        >
           All donors receive a profile badge to showcase their generous
           contribution
         </ProgressBarItem>
-        <ProgressBarItem value={5000} currentValue={currentValue}>
+
+        <ProgressBarItem
+          className="md:hidden"
+          value={5000}
+          currentValue={currentValue}
+        >
           All donors receive 20,000 Pokécoins. 5&times;{" "}
           <b>Shiny United Pikachu</b> raffled out
         </ProgressBarItem>
-        <ProgressBarItem value={7500} currentValue={currentValue}>
+
+        <ProgressBarItem
+          className="md:hidden"
+          value={7500}
+          currentValue={currentValue}
+        >
           All donors receive 50,000 Pokécoins as a reward for their charitable
           donation
         </ProgressBarItem>
-        <ProgressBarItem value={10000} currentValue={currentValue}>
-          All donors receive 1,000 shards. 10&times; additional{" "}
-          <b>Shiny United Pikachu</b> raffled out
+
+        <ProgressBarItem
+          className="md:hidden"
+          value={10000}
+          currentValue={currentValue}
+        >
+          All donors receive 1,000 shards. Another 10&times;{" "}
+          <ShinyUnitedPikachuText /> raffled out
+        </ProgressBarItem>
+
+        <ProgressBarItem
+          className="hidden md:block"
+          value={10000}
+          currentValue={currentValue}
+        >
+          All donors receive a badge, 20,000 Pokécoins, 1,000 shards. 15&times;{" "}
+          <ShinyUnitedPikachuText /> raffled out
+        </ProgressBarItem>
+
+        <ProgressBarItem value={20000} currentValue={currentValue}>
+          Pokétwo contributes additional $3,000 to fundraiser. Another 10&times;{" "}
+          <ShinyUnitedPikachuText /> raffled out
+        </ProgressBarItem>
+
+        <ProgressBarItem value={30000} currentValue={currentValue}>
+          All donors receive 500 more shards. Another 15&times;{" "}
+          <ShinyUnitedPikachuText /> raffled out
         </ProgressBarItem>
       </div>
     </div>
@@ -184,6 +236,7 @@ const DonationForm = ({ onDonate }: DonationFormProps) => {
         <div className="flex flex-wrap gap-3">
           {values.map((x) => (
             <button
+              key={x}
               type="submit"
               className="flex-1 -ml-px px-3 py-2 border border-gray-300 text-lg font-medium rounded-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
               onClick={() => onDonate(x * 100)}
