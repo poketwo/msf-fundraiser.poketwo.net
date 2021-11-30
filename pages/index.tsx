@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { FormEventHandler, PropsWithChildren, useRef } from "react";
 import { HiCheckCircle, HiChevronUp, HiSparkles } from "react-icons/hi";
+import useSWR, { SWRConfig } from "swr";
 import Logos from "../components/Logos";
 import { fetchValue } from "../lib/db";
 import { useTime } from "../lib/time";
@@ -116,7 +117,7 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
 
       <div className="relative overflow-hidden rounded-lg mb-8 md:mb-3 h-8 bg-gradient-to-r from-yellow-500 to-pink-500 via-red-500">
         <div
-          className="absolute inset-0 bg-gray-200 ml-auto -mt-2 -mb-2"
+          className="absolute inset-0 bg-gray-200 ml-auto -mt-2 -mb-2 transition-all duration-1000"
           style={{
             width: `${100 - percentage}%`,
             clipPath: "polygon(0 0, 10px 50%, 0 100%, 100% 100%, 100% 0)",
@@ -268,11 +269,12 @@ const DonationForm = ({ onDonate }: DonationFormProps) => {
   );
 };
 
-type HomeProps = {
-  currentValue: number;
-};
+const HomeContent = () => {
+  const { data: currentValue } = useSWR<number>("currentValue", async () => {
+    const resp = await fetch("/api/value");
+    return Number(await resp.text());
+  });
 
-const Home = ({ currentValue }: HomeProps) => {
   const handleDonate = (amount: number) => {
     window.location.href = `/api/checkout?amount=${amount}`;
   };
@@ -281,11 +283,21 @@ const Home = ({ currentValue }: HomeProps) => {
     <div className="flex flex-col items-center gap-16 max-w-5xl mx-auto p-6 pb-24">
       <Logos />
       <Text />
-      <ProgressBar currentValue={currentValue} />
+      <ProgressBar currentValue={currentValue as number} />
       <DonationForm onDonate={handleDonate} />
     </div>
   );
 };
+
+type HomeProps = {
+  currentValue: number;
+};
+
+const Home = ({ currentValue }: HomeProps) => (
+  <SWRConfig value={{ refreshInterval: 10000, fallback: { currentValue } }}>
+    <HomeContent />
+  </SWRConfig>
+);
 
 export default Home;
 
