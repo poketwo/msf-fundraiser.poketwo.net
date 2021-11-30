@@ -155,7 +155,7 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
         </ProgressBarItem>
 
         <ProgressBarItem value={20000} currentValue={currentValue}>
-          Pokétwo contributes additional $3,000 to fundraiser. Another 10&times;{" "}
+          Pokétwo contributes additional $3,000 to fundraiser. Another 15&times;{" "}
           <ShinyUnitedPikachuText /> raffled out
         </ProgressBarItem>
 
