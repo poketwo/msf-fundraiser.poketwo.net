@@ -9,7 +9,7 @@ import Logos from "../components/Logos";
 import { fetchValue } from "../lib/db";
 import { useTime } from "../lib/time";
 
-const END_DATE = new Date(1639094400000);
+const END_DATE = new Date(1639267200000);
 
 const format = new Intl.NumberFormat("en-US", {
   style: "currency",
