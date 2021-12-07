@@ -167,7 +167,7 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
           value={10000}
           currentValue={currentValue}
         >
-          All donors receive a badge, 20,000 Pokécoins, 1,000 shards. 15&times;{" "}
+          All donors receive a badge, 70,000 Pokécoins, 1,000 shards. 15&times;{" "}
           <ShinyUnitedPikachuText /> raffled out
         </ProgressBarItem>
 
