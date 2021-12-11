@@ -96,7 +96,7 @@ const ProgressBar = ({ currentValue }: ProgressBarProps) => {
   const time = useTime();
   const remaining = formatDuration(
     intervalToDuration({ start: time, end: END_DATE }),
-    { format: ["days", "hours"] }
+    { format: ["days", "hours", "minutes"] }
   );
 
   return (
