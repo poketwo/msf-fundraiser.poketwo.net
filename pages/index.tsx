@@ -200,7 +200,7 @@ const CustomDonation = ({ onDonate }: CustomDonationInput) => {
 
   return (
     <form
-      className="flex-1 flex relative rounded-md shadow-sm"
+      className="flex-1 flex relative rounded-md shadow-sm opacity-50"
       onSubmit={handleSubmit}
     >
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-20">
@@ -216,12 +216,14 @@ const CustomDonation = ({ onDonate }: CustomDonationInput) => {
         placeholder="50"
         min={3}
         step={0.01}
+        disabled
         required
       />
 
       <button
         type="submit"
-        className="-ml-px px-4 py-2 border border-gray-300 text-lg font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+        className="-ml-px px-4 py-2 border border-gray-300 text-lg font-medium rounded-r-md text-gray-700 bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 cursor-default"
+        disabled
       >
         Donate
       </button>
@@ -255,8 +257,9 @@ const DonationForm = ({ onDonate }: DonationFormProps) => {
             <button
               key={x}
               type="submit"
-              className="flex-1 -ml-px px-3 py-2 border border-gray-300 text-lg font-medium rounded-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-              onClick={() => onDonate(x * 100)}
+              className="flex-1 -ml-px px-3 py-2 border border-gray-300 text-lg font-medium rounded-md text-gray-700 bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 opacity-50 cursor-default"
+              // onClick={() => onDonate(x * 100)}
+              disabled
             >
               {format.format(x)}
             </button>

@@ -5,6 +5,8 @@ import oauth from "../../lib/oauth";
 import { ironSessionOptions } from "../../lib/session";
 
 const handler = withIronSessionApiRoute(async (req, res) => {
+  return res.status(400).send("Fundraiser has ended");
+
   const { amount: _amount } = req.query;
 
   const amount = Number(_amount);
