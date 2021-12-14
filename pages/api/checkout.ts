@@ -19,6 +19,7 @@ const handler = withIronSessionApiRoute(async (req, res) => {
 
   const state = crypto
     .createHash("sha256")
+    // @ts-ignore
     .update(req.session.id)
     .digest("hex");
 
